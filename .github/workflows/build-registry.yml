@@ -29,16 +29,9 @@ jobs:
         run: npm run validate
 
       - name: Build registry
+        # Verifies the registry compiles. registry.json is a build artifact
+        # (git-ignored) — the deploy job rebuilds it fresh before deploying.
         run: npm run build
-
-      - name: Commit updated registry
-        if: github.ref == 'refs/heads/main'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add registry.json
-          git diff --cached --quiet || git commit -m "chore: rebuild registry.json [skip ci]"
-          git push
 
   deploy-worker:
     runs-on: ubuntu-latest

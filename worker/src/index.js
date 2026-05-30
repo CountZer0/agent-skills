@@ -38,10 +38,12 @@ export default {
         count: REGISTRY.count,
         endpoints: {
           list: "/skills",
+          list_text: "/skills?format=text",
           filter_by_agent: "/skills?agent=claude",
           filter_by_tag: "/skills?tag=text",
           combined: "/skills?agent=claude&tag=text",
           get_one: "/skills/:name",
+          get_raw_prompt: "/skills/:name/raw",
         },
         agents: ["claude", "hermes", "pi", "codex"],
       });
@@ -65,6 +67,16 @@ export default {
         skills = skills.filter((s) => s.tags.includes(tagFilter));
       }
 
+      // Plain-text listing for shell clients (no JSON parsing needed)
+      if (searchParams.get("format") === "text") {
+        const lines = skills.map(
+          (s) => `${s.name}\t[${s.agents.join(",")}]\t${s.description}`
+        );
+        return new Response(lines.join("\n") + "\n", {
+          headers: { "Content-Type": "text/plain; charset=utf-8", ...CORS },
+        });
+      }
+
       if (skills.length === 0) {
         return json({ count: 0, skills: [] });
       }
@@ -72,6 +84,21 @@ export default {
       // Strip content from list responses — full content only on /skills/:name
       const list = skills.map(({ content: _, ...meta }) => meta);
       return json({ count: list.length, skills: list });
+    }
+
+    // GET /skills/:name/raw — prompt body as text/plain (for shell clients)
+    const rawMatch = pathname.match(/^\/skills\/([^/]+)\/raw$/);
+    if (rawMatch) {
+      const skill = REGISTRY.skills.find((s) => s.name === rawMatch[1]);
+      if (!skill) {
+        return new Response(`Skill "${rawMatch[1]}" not found\n`, {
+          status: 404,
+          headers: { "Content-Type": "text/plain; charset=utf-8", ...CORS },
+        });
+      }
+      return new Response(skill.content + "\n", {
+        headers: { "Content-Type": "text/plain; charset=utf-8", ...CORS },
+      });
     }
 
     // GET /skills/:name

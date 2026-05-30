@@ -1,0 +1,64 @@
+#!/usr/bin/env sh
+# agent-skills — universal skill loader
+# Fetches skill prompts from the agent-skills registry over HTTP.
+# Zero dependencies: just POSIX sh + curl.
+set -e
+
+BASE="${AGENT_SKILLS_URL:-https://agent-skills-registry.count-zr0.workers.dev}"
+
+usage() {
+  cat <<EOF
+agent-skills — universal skill loader
+
+usage:
+  skill list [--agent claude|hermes|pi|codex] [--tag <tag>]
+      List available skills (name, agents, description).
+
+  skill get <name>
+      Print the raw prompt body. Pipe this into any agent.
+
+  skill show <name>
+      Print full JSON metadata (version, tags, input_schema, prompt).
+
+env:
+  AGENT_SKILLS_URL   Override the registry base URL
+                     (default: $BASE)
+
+examples:
+  skill list --agent claude
+  skill get summarize | pbcopy
+  claude --append-system-prompt "\$(skill get code-review)" -p "review src/"
+EOF
+}
+
+cmd="${1:-help}"
+case "$cmd" in
+  list)
+    shift
+    query=""
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        --agent) query="${query}&agent=$2"; shift 2 ;;
+        --tag)   query="${query}&tag=$2";   shift 2 ;;
+        *) echo "unknown option: $1" >&2; exit 1 ;;
+      esac
+    done
+    curl -fsSL "${BASE}/skills?format=text${query}"
+    ;;
+  get)
+    [ -n "$2" ] || { echo "usage: skill get <name>" >&2; exit 1; }
+    curl -fsSL "${BASE}/skills/$2/raw"
+    ;;
+  show)
+    [ -n "$2" ] || { echo "usage: skill show <name>" >&2; exit 1; }
+    curl -fsSL "${BASE}/skills/$2"
+    ;;
+  help|--help|-h)
+    usage
+    ;;
+  *)
+    echo "unknown command: $cmd" >&2
+    usage
+    exit 1
+    ;;
+esac
