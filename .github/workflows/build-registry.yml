@@ -7,10 +7,13 @@ on:
       - "skills/**"
       - "scripts/**"
       - "worker/**"
+      - ".github/workflows/**"
   pull_request:
     paths:
       - "skills/**"
       - "worker/**"
+      - ".github/workflows/**"
+  workflow_dispatch:
 
 jobs:
   validate-and-build:
