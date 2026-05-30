@@ -1,8 +1,5 @@
-import REGISTRY_JSON from "../../registry.json?raw";
-import HERMES_INDEX_JSON from "../../hermes-index.json?raw";
-
-const REGISTRY = JSON.parse(REGISTRY_JSON);
-const HERMES_INDEX = JSON.parse(HERMES_INDEX_JSON);
+import REGISTRY from "../../registry.json";
+import HERMES_INDEX from "../../hermes-index.json";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
