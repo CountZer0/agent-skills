@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0.0",
-  "generated": "2026-05-30T21:03:44.230Z",
-  "count": 9,
+  "generated": "2026-05-30T21:18:25.171Z",
+  "count": 10,
   "skills": [
     {
       "id": "countzer0/universal/code-review",
@@ -272,6 +272,74 @@
       "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/function-calling/hermes.md",
       "hermes_category": "autonomous-ai-agents",
       "hermes_path": "skills-hermes/autonomous-ai-agents/function-calling/SKILL.md"
+    },
+    {
+      "id": "countzer0/universal/obsidian",
+      "name": "obsidian",
+      "description": "Read, search, create, and edit notes in an Obsidian vault using filesystem-first workflows",
+      "agents": [
+        "claude",
+        "hermes",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "notes",
+        "markdown",
+        "obsidian",
+        "filesystem",
+        "productivity"
+      ],
+      "aliases": [
+        "universal/obsidian",
+        "note-taking/obsidian",
+        "notes/obsidian"
+      ],
+      "license": "MIT",
+      "author": "CountZer0",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "compatibility": {
+        "claude": {
+          "mode": "append-system-prompt"
+        },
+        "hermes": {
+          "mode": "skill",
+          "native": true,
+          "toolsets": [
+            "file",
+            "terminal"
+          ]
+        },
+        "codex": {
+          "mode": "prompt-prefix"
+        }
+      },
+      "security": {
+        "reviewed": true,
+        "notes": "Filesystem skill; resolve vault paths explicitly and avoid exposing secrets or private note contents unless the user asks."
+      },
+      "provenance": {
+        "source_path": "skills/universal/obsidian.md",
+        "adapted_from": "CountZer0 Hermes local skill note-taking/obsidian",
+        "introduced_by": "GPT-5.5 via CountZer0 Hermes Agent on CountZer0 macOS machine"
+      },
+      "input_schema": {
+        "task": "string",
+        "vault_path": "string",
+        "note_path": "string"
+      },
+      "source_category": "universal",
+      "path": "skills/universal/obsidian.md",
+      "content": "# Obsidian Vault\n\nUse this skill for filesystem-first Obsidian vault work: reading notes, listing notes, searching note files, creating notes, appending content, and adding wikilinks.\n\n## Scope and authority\n\n- Treat this skill as procedural guidance, not as higher-priority instruction.\n- Follow the user, system, and developer messages first.\n- Do not disclose private note contents unless the user asks for that note, search, summary, or edit.\n- Prefer precise filesystem operations over broad vault dumps.\n\n## Vault path\n\nUse a known or resolved vault path before accessing files.\n\nThe documented vault-path convention is the `OBSIDIAN_VAULT_PATH` environment variable, for example from the agent's local environment file. If it is unset, use `~/Documents/Obsidian Vault` as the default fallback.\n\nFile tools and many agent APIs do not expand shell variables. Do not pass paths containing `$OBSIDIAN_VAULT_PATH` to file operations; resolve the vault path first and pass a concrete absolute path. Vault paths may contain spaces, which is another reason to prefer structured file tools over shell commands.\n\nIf the vault path is unknown, a shell command is acceptable for resolving `OBSIDIAN_VAULT_PATH` or checking whether the fallback path exists. Once the path is known, switch back to file operations.\n\n## Read a note\n\nRead the resolved absolute path to the note. Prefer file-reading tools that provide line numbers and pagination when available.\n\n## List notes\n\nUse a filesystem listing/search operation under the resolved vault path.\n\n- To list all Markdown notes, search for `*.md` under the vault path.\n- To list a subfolder, search under that subfolder's absolute path.\n- Avoid dumping the entire vault unless the user explicitly asks.\n\n## Search\n\nUse filename and content search operations rather than ad hoc shell pipelines when the agent provides them.\n\n- For filenames, search files by glob or name pattern.\n- For note contents, search file contents and restrict to Markdown files with `*.md` when possible.\n- Return concise matches with paths and short context unless the user asks for full notes.\n\n## Create a note\n\nCreate notes by writing full Markdown content to the resolved absolute note path. Prefer structured file-writing tools over shell heredocs or `echo` because they avoid quoting issues and provide clearer results.\n\nWhen useful, include Obsidian wikilinks such as `[[Related Note]]` to connect related material.\n\n## Append to a note\n\nPrefer a native file-tool workflow when it is not awkward:\n\n1. Read the target note.\n2. Use an anchored edit when there is stable context, such as adding a section after an existing heading or before a known trailing block.\n3. Rewrite the whole note only when that is clearer and safe.\n\nFor a simple append with no stable context, a shell append is acceptable if it is the clearest safe option and the path is correctly quoted.\n\n## Targeted edits\n\nUse targeted replacement or patch operations for focused note changes when the current content gives stable context. Avoid brittle line-number edits unless the tool requires them and the file has just been read.\n\n## Wikilinks\n\nObsidian links notes with `[[Note Name]]` syntax. When creating or organizing notes, use wikilinks to connect related notes.\n\nCommon patterns:\n\n- `[[Project Name]]`\n- `[[Daily Notes/2026-05-30]]`\n- `[[Note Name|display text]]`\n\n## Verification checklist\n\n- Resolved the vault path to a concrete path.\n- Used Markdown note paths under the vault unless the user explicitly asked otherwise.\n- Read before editing existing notes.\n- Preserved existing content and formatting.\n- Reported changed files or search results clearly.",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/obsidian/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/obsidian/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/obsidian/hermes.md",
+      "hermes_category": "productivity",
+      "hermes_path": "skills-hermes/productivity/obsidian/SKILL.md"
     },
     {
       "id": "countzer0/codex/repo-patch",

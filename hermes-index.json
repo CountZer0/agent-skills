@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0.0",
-  "generated": "2026-05-30T21:03:44.230Z",
+  "generated": "2026-05-30T21:18:25.171Z",
   "name": "countzer0-agent-skills-hermes-index",
   "description": "Hermes-native projection of CountZer0/agent-skills.",
   "source": "https://github.com/CountZer0/agent-skills",
-  "count": 6,
+  "count": 7,
   "skills": [
     {
       "id": "countzer0/universal/code-review",
@@ -85,6 +85,37 @@
       "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/function-calling/hermes.md",
       "agents": [
         "hermes"
+      ],
+      "trust": "community",
+      "source": "countzer0/agent-skills"
+    },
+    {
+      "id": "countzer0/universal/obsidian",
+      "name": "obsidian",
+      "description": "Read, search, create, and edit notes in an Obsidian vault using filesystem-first workflows",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": [
+        "notes",
+        "markdown",
+        "obsidian",
+        "filesystem",
+        "productivity"
+      ],
+      "aliases": [
+        "universal/obsidian",
+        "note-taking/obsidian",
+        "notes/obsidian"
+      ],
+      "path": "skills-hermes/productivity/obsidian/SKILL.md",
+      "source_path": "skills/universal/obsidian.md",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/obsidian/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/obsidian/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/obsidian/hermes.md",
+      "agents": [
+        "claude",
+        "hermes",
+        "codex"
       ],
       "trust": "community",
       "source": "countzer0/agent-skills"
