@@ -7,6 +7,17 @@ tags: [code, patch, codex-specific]
 input_schema:
   task: string
   file_context: string
+aliases:
+  - codex/repo-patch
+license: MIT
+compatibility:
+  codex:
+    mode: prompt-prefix
+security:
+  reviewed: true
+  notes: Prompt-only skill; must not override system, developer, or user authority.
+provenance:
+  source_path: skills/codex/repo-patch.md
 ---
 
 Generate a patch that implements the described change.

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 # agent-skills — universal skill loader
 # Fetches skill prompts from the agent-skills registry over HTTP.
-# Zero dependencies: just POSIX sh + curl.
+# Zero dependencies for list/get/show; install uses the target agent CLI.
 set -e
 
 BASE="${AGENT_SKILLS_URL:-https://agent-skills-registry.count-zr0.workers.dev}"
@@ -17,8 +17,19 @@ usage:
   skill get <name>
       Print the raw prompt body. Pipe this into any agent.
 
+  skill markdown <name>
+      Print full Markdown with frontmatter.
+
+  skill hermes <name>
+      Print Hermes-native SKILL.md projection.
+
   skill show <name>
       Print full JSON metadata (version, tags, input_schema, prompt).
+
+  skill install <name> [--agent hermes]
+      Install a skill into the target agent. Currently supports Hermes only.
+      Hermes install uses the active/default Hermes profile only; it does not
+      sync or write sub-profiles.
 
 env:
   AGENT_SKILLS_URL   Override the registry base URL
@@ -27,8 +38,15 @@ env:
 examples:
   skill list --agent claude
   skill get summarize | pbcopy
+  skill hermes summarize
+  skill install summarize --agent hermes
   claude --append-system-prompt "\$(skill get code-review)" -p "review src/"
 EOF
+}
+
+urlenc() {
+  # Names are validated as kebab-case, but keep this small helper for aliases.
+  printf '%s' "$1" | sed 's|/|%2F|g; s| |%20|g'
 }
 
 cmd="${1:-help}"
@@ -47,11 +65,44 @@ case "$cmd" in
     ;;
   get)
     [ -n "$2" ] || { echo "usage: skill get <name>" >&2; exit 1; }
-    curl -fsSL "${BASE}/skills/$2/raw"
+    curl -fsSL "${BASE}/skills/$(urlenc "$2")/raw"
+    ;;
+  markdown)
+    [ -n "$2" ] || { echo "usage: skill markdown <name>" >&2; exit 1; }
+    curl -fsSL "${BASE}/skills/$(urlenc "$2")/markdown"
+    ;;
+  hermes)
+    [ -n "$2" ] || { echo "usage: skill hermes <name>" >&2; exit 1; }
+    curl -fsSL "${BASE}/skills/$(urlenc "$2")/hermes.md"
     ;;
   show)
     [ -n "$2" ] || { echo "usage: skill show <name>" >&2; exit 1; }
-    curl -fsSL "${BASE}/skills/$2"
+    curl -fsSL "${BASE}/skills/$(urlenc "$2")"
+    ;;
+  install)
+    [ -n "$2" ] || { echo "usage: skill install <name> [--agent hermes]" >&2; exit 1; }
+    name="$2"
+    shift 2
+    agent="hermes"
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        --agent) agent="$2"; shift 2 ;;
+        *) echo "unknown option: $1" >&2; exit 1 ;;
+      esac
+    done
+    case "$agent" in
+      hermes)
+        if ! command -v hermes >/dev/null 2>&1; then
+          echo "hermes CLI not found in PATH" >&2
+          exit 1
+        fi
+        hermes skills install "${BASE}/skills/$(urlenc "$name")/hermes.md"
+        ;;
+      *)
+        echo "install currently supports --agent hermes only" >&2
+        exit 1
+        ;;
+    esac
     ;;
   help|--help|-h)
     usage

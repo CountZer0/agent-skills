@@ -1,33 +1,29 @@
 ---
 name: web-search
-description: Search the web and synthesize results into a concise, cited answer
-agents: [claude, hermes, pi, codex]
+description: "Search the web and synthesize results into a concise, cited answer"
 version: 1.0.0
-tags: [search, research, web]
-input_schema:
-  query: string
-  max_results: integer
-  recency: "day | week | month | any"
-aliases:
-  - universal/web-search
-  - text/web-search
+author: CountZer0
 license: MIT
-compatibility:
-  claude:
-    mode: append-system-prompt
+platforms: ["linux", "macos", "windows"]
+metadata:
   hermes:
-    mode: skill
-    native: true
+    tags: ["search", "research", "web"]
+    related_skills: []
+    category: research
     toolsets: []
-  pi:
-    mode: system-message
-  codex:
-    mode: prompt-prefix
-security:
-  reviewed: true
-  notes: Prompt-only skill; must not override system, developer, or user authority.
-provenance:
-  source_path: skills/universal/web-search.md
+  agent_skills:
+    id: countzer0/universal/web-search
+    agents: ["claude", "hermes", "pi", "codex"]
+    aliases: ["universal/web-search", "text/web-search"]
+    source_path: skills/universal/web-search.md
+    raw_url: https://agent-skills-registry.count-zr0.workers.dev/skills/web-search/raw
+    markdown_url: https://agent-skills-registry.count-zr0.workers.dev/skills/web-search/markdown
+    input_schema:
+      {
+        "query": "string",
+        "max_results": "integer",
+        "recency": "day | week | month | any"
+      }
 ---
 
 Search the web for the given query and return a synthesized answer.

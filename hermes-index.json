@@ -1,0 +1,180 @@
+{
+  "schema_version": "1.0.0",
+  "generated": "2026-05-30T21:02:13.609Z",
+  "name": "countzer0-agent-skills-hermes-index",
+  "description": "Hermes-native projection of CountZer0/agent-skills.",
+  "source": "https://github.com/CountZer0/agent-skills",
+  "count": 6,
+  "skills": [
+    {
+      "id": "countzer0/universal/code-review",
+      "name": "code-review",
+      "description": "Review code for correctness, security, and clarity",
+      "version": "1.0.0",
+      "category": "software-development",
+      "tags": [
+        "code",
+        "quality",
+        "security"
+      ],
+      "aliases": [
+        "universal/code-review",
+        "text/code-review"
+      ],
+      "path": "skills-hermes/software-development/code-review/SKILL.md",
+      "source_path": "skills/universal/code-review.md",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/code-review/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/code-review/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/code-review/hermes.md",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "trust": "community",
+      "source": "countzer0/agent-skills"
+    },
+    {
+      "id": "countzer0/universal/extract-entities",
+      "name": "extract-entities",
+      "description": "Extract named entities (people, places, orgs, dates) from unstructured text",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": [
+        "text",
+        "extraction",
+        "nlp"
+      ],
+      "aliases": [
+        "universal/extract-entities",
+        "text/extract-entities"
+      ],
+      "path": "skills-hermes/productivity/extract-entities/SKILL.md",
+      "source_path": "skills/universal/extract-entities.md",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/extract-entities/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/extract-entities/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/extract-entities/hermes.md",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "trust": "community",
+      "source": "countzer0/agent-skills"
+    },
+    {
+      "id": "countzer0/hermes/function-calling",
+      "name": "function-calling",
+      "description": "Invoke tools via Hermes-style structured function call format",
+      "version": "1.0.0",
+      "category": "autonomous-ai-agents",
+      "tags": [
+        "tools",
+        "function-calling",
+        "hermes-specific"
+      ],
+      "aliases": [
+        "hermes/function-calling"
+      ],
+      "path": "skills-hermes/autonomous-ai-agents/function-calling/SKILL.md",
+      "source_path": "skills/hermes/function-calling.md",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/function-calling/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/function-calling/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/function-calling/hermes.md",
+      "agents": [
+        "hermes"
+      ],
+      "trust": "community",
+      "source": "countzer0/agent-skills"
+    },
+    {
+      "id": "countzer0/universal/summarize",
+      "name": "summarize",
+      "description": "Condense long text into clear, structured key points",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": [
+        "text",
+        "utility",
+        "reading"
+      ],
+      "aliases": [
+        "universal/summarize",
+        "text/summarize"
+      ],
+      "path": "skills-hermes/productivity/summarize/SKILL.md",
+      "source_path": "skills/universal/summarize.md",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/summarize/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/summarize/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/summarize/hermes.md",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "trust": "community",
+      "source": "countzer0/agent-skills"
+    },
+    {
+      "id": "countzer0/universal/translate",
+      "name": "translate",
+      "description": "Translate text between languages with tone preservation",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": [
+        "text",
+        "language",
+        "utility"
+      ],
+      "aliases": [
+        "universal/translate",
+        "text/translate"
+      ],
+      "path": "skills-hermes/productivity/translate/SKILL.md",
+      "source_path": "skills/universal/translate.md",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/translate/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/translate/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/translate/hermes.md",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "trust": "community",
+      "source": "countzer0/agent-skills"
+    },
+    {
+      "id": "countzer0/universal/web-search",
+      "name": "web-search",
+      "description": "Search the web and synthesize results into a concise, cited answer",
+      "version": "1.0.0",
+      "category": "research",
+      "tags": [
+        "search",
+        "research",
+        "web"
+      ],
+      "aliases": [
+        "universal/web-search",
+        "text/web-search"
+      ],
+      "path": "skills-hermes/research/web-search/SKILL.md",
+      "source_path": "skills/universal/web-search.md",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/web-search/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/web-search/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/web-search/hermes.md",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "trust": "community",
+      "source": "countzer0/agent-skills"
+    }
+  ]
+}

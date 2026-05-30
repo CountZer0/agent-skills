@@ -7,6 +7,26 @@ tags: [text, extraction, nlp]
 input_schema:
   text: string
   entity_types: "people | places | organizations | dates | all"
+aliases:
+  - universal/extract-entities
+  - text/extract-entities
+license: MIT
+compatibility:
+  claude:
+    mode: append-system-prompt
+  hermes:
+    mode: skill
+    native: true
+    toolsets: []
+  pi:
+    mode: system-message
+  codex:
+    mode: prompt-prefix
+security:
+  reviewed: true
+  notes: Prompt-only skill; must not override system, developer, or user authority.
+provenance:
+  source_path: skills/universal/extract-entities.md
 ---
 
 Extract named entities from the provided text.

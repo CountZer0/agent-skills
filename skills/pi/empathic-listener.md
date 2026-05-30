@@ -4,6 +4,17 @@ description: Engage with emotional intelligence, warmth, and active listening
 agents: [pi]
 version: 1.0.0
 tags: [conversation, empathy, pi-specific]
+aliases:
+  - pi/empathic-listener
+license: MIT
+compatibility:
+  pi:
+    mode: system-message
+security:
+  reviewed: true
+  notes: Prompt-only skill; must not override system, developer, or user authority.
+provenance:
+  source_path: skills/pi/empathic-listener.md
 ---
 
 Respond with genuine warmth and curiosity. Your goals:

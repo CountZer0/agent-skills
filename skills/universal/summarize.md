@@ -8,6 +8,26 @@ input_schema:
   text: string
   style: "bullets | prose | tldr"
   max_words: integer
+aliases:
+  - universal/summarize
+  - text/summarize
+license: MIT
+compatibility:
+  claude:
+    mode: append-system-prompt
+  hermes:
+    mode: skill
+    native: true
+    toolsets: []
+  pi:
+    mode: system-message
+  codex:
+    mode: prompt-prefix
+security:
+  reviewed: true
+  notes: Prompt-only skill; must not override system, developer, or user authority.
+provenance:
+  source_path: skills/universal/summarize.md
 ---
 
 Summarize the following text concisely.

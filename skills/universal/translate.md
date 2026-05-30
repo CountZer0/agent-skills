@@ -9,6 +9,26 @@ input_schema:
   target_language: string
   source_language: string
   tone: "formal | casual | technical"
+aliases:
+  - universal/translate
+  - text/translate
+license: MIT
+compatibility:
+  claude:
+    mode: append-system-prompt
+  hermes:
+    mode: skill
+    native: true
+    toolsets: []
+  pi:
+    mode: system-message
+  codex:
+    mode: prompt-prefix
+security:
+  reviewed: true
+  notes: Prompt-only skill; must not override system, developer, or user authority.
+provenance:
+  source_path: skills/universal/translate.md
 ---
 
 Translate the provided text into the target language.

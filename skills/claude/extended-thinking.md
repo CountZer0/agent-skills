@@ -7,6 +7,17 @@ tags: [reasoning, planning, claude-specific]
 input_schema:
   problem: string
   budget_tokens: integer
+aliases:
+  - claude/extended-thinking
+license: MIT
+compatibility:
+  claude:
+    mode: append-system-prompt
+security:
+  reviewed: true
+  notes: Prompt-only skill; must not override system, developer, or user authority.
+provenance:
+  source_path: skills/claude/extended-thinking.md
 ---
 
 Before answering, think through this problem thoroughly inside a <parameter name="thinking"> block.

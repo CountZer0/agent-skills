@@ -7,6 +7,19 @@ tags: [tools, function-calling, hermes-specific]
 input_schema:
   task: string
   available_tools: array
+aliases:
+  - hermes/function-calling
+license: MIT
+compatibility:
+  hermes:
+    mode: skill
+    native: true
+    toolsets: []
+security:
+  reviewed: true
+  notes: Prompt-only skill; must not override system, developer, or user authority.
+provenance:
+  source_path: skills/hermes/function-calling.md
 ---
 
 You are a function-calling agent. When the task requires a tool, emit a function call using this exact format:

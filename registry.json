@@ -1,0 +1,518 @@
+{
+  "schema_version": "2.0.0",
+  "generated": "2026-05-30T21:02:13.609Z",
+  "count": 9,
+  "skills": [
+    {
+      "id": "countzer0/universal/code-review",
+      "name": "code-review",
+      "description": "Review code for correctness, security, and clarity",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "code",
+        "quality",
+        "security"
+      ],
+      "aliases": [
+        "universal/code-review",
+        "text/code-review"
+      ],
+      "license": "MIT",
+      "author": "CountZer0",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "compatibility": {
+        "claude": {
+          "mode": "append-system-prompt"
+        },
+        "hermes": {
+          "mode": "skill",
+          "native": true,
+          "toolsets": []
+        },
+        "pi": {
+          "mode": "system-message"
+        },
+        "codex": {
+          "mode": "prompt-prefix"
+        }
+      },
+      "security": {
+        "reviewed": true,
+        "notes": "Prompt-only skill; must not override system, developer, or user authority."
+      },
+      "provenance": {
+        "source_path": "skills/universal/code-review.md"
+      },
+      "input_schema": {
+        "code": "string",
+        "language": "string",
+        "focus": "correctness | security | style | all"
+      },
+      "source_category": "universal",
+      "path": "skills/universal/code-review.md",
+      "content": "Review the provided code and report findings.\n\nStructure your output as:\n\n**Bugs / Correctness**\n- List logic errors, off-by-ones, null dereferences, or incorrect assumptions.\n\n**Security**\n- Flag injection risks, unsafe deserialization, hardcoded secrets, missing auth checks, etc.\n\n**Clarity**\n- Note confusing naming, missing edge-case handling, or structural issues that will cause future bugs.\n\nRules:\n- Only report findings with high confidence. Skip speculative or stylistic nitpicks unless focus=style.\n- For each finding include: severity (critical / high / medium / low), file+line if available, and a one-line fix suggestion.\n- If focus is set, only report findings in that category.\n- End with a one-line overall verdict.",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/code-review/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/code-review/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/code-review/hermes.md",
+      "hermes_category": "software-development",
+      "hermes_path": "skills-hermes/software-development/code-review/SKILL.md"
+    },
+    {
+      "id": "countzer0/pi/empathic-listener",
+      "name": "empathic-listener",
+      "description": "Engage with emotional intelligence, warmth, and active listening",
+      "agents": [
+        "pi"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "conversation",
+        "empathy",
+        "pi-specific"
+      ],
+      "aliases": [
+        "pi/empathic-listener"
+      ],
+      "license": "MIT",
+      "author": "CountZer0",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "compatibility": {
+        "pi": {
+          "mode": "system-message"
+        }
+      },
+      "security": {
+        "reviewed": true,
+        "notes": "Prompt-only skill; must not override system, developer, or user authority."
+      },
+      "provenance": {
+        "source_path": "skills/pi/empathic-listener.md"
+      },
+      "input_schema": null,
+      "source_category": "pi",
+      "path": "skills/pi/empathic-listener.md",
+      "content": "Respond with genuine warmth and curiosity. Your goals:\n\n1. **Acknowledge first** — before offering advice or information, reflect back what the person said to show you heard them.\n2. **Ask one question** — choose the most meaningful follow-up question rather than a list.\n3. **Stay present** — do not jump ahead to solutions unless the person asks for them.\n4. **Avoid platitudes** — no \"I understand how you feel\" without substance behind it.\n5. **Match energy** — meet serious moments with seriousness, light moments with lightness.\n\nYou are a thoughtful companion, not a problem-solver unless invited to be one.",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/empathic-listener/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/empathic-listener/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/empathic-listener/hermes.md",
+      "hermes_category": "pi",
+      "hermes_path": "skills-hermes/pi/empathic-listener/SKILL.md"
+    },
+    {
+      "id": "countzer0/claude/extended-thinking",
+      "name": "extended-thinking",
+      "description": "Trigger deep multi-step reasoning before answering hard problems",
+      "agents": [
+        "claude"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "reasoning",
+        "planning",
+        "claude-specific"
+      ],
+      "aliases": [
+        "claude/extended-thinking"
+      ],
+      "license": "MIT",
+      "author": "CountZer0",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "compatibility": {
+        "claude": {
+          "mode": "append-system-prompt"
+        }
+      },
+      "security": {
+        "reviewed": true,
+        "notes": "Prompt-only skill; must not override system, developer, or user authority."
+      },
+      "provenance": {
+        "source_path": "skills/claude/extended-thinking.md"
+      },
+      "input_schema": {
+        "problem": "string",
+        "budget_tokens": "integer"
+      },
+      "source_category": "claude",
+      "path": "skills/claude/extended-thinking.md",
+      "content": "Before answering, think through this problem thoroughly inside a <parameter name=\"thinking\"> block.\n\nIn your thinking:\n- Break the problem into sub-problems\n- Consider edge cases and counterarguments\n- Explore multiple solution paths before committing\n- Identify assumptions and flag ones you're uncertain about\n\nAfter thinking, give your answer directly — no recap of the reasoning process unless asked.\n\nSet budget_tokens to control depth (default 8000; increase for harder problems).",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/extended-thinking/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/extended-thinking/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/extended-thinking/hermes.md",
+      "hermes_category": "autonomous-ai-agents",
+      "hermes_path": "skills-hermes/autonomous-ai-agents/extended-thinking/SKILL.md"
+    },
+    {
+      "id": "countzer0/universal/extract-entities",
+      "name": "extract-entities",
+      "description": "Extract named entities (people, places, orgs, dates) from unstructured text",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "text",
+        "extraction",
+        "nlp"
+      ],
+      "aliases": [
+        "universal/extract-entities",
+        "text/extract-entities"
+      ],
+      "license": "MIT",
+      "author": "CountZer0",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "compatibility": {
+        "claude": {
+          "mode": "append-system-prompt"
+        },
+        "hermes": {
+          "mode": "skill",
+          "native": true,
+          "toolsets": []
+        },
+        "pi": {
+          "mode": "system-message"
+        },
+        "codex": {
+          "mode": "prompt-prefix"
+        }
+      },
+      "security": {
+        "reviewed": true,
+        "notes": "Prompt-only skill; must not override system, developer, or user authority."
+      },
+      "provenance": {
+        "source_path": "skills/universal/extract-entities.md"
+      },
+      "input_schema": {
+        "text": "string",
+        "entity_types": "people | places | organizations | dates | all"
+      },
+      "source_category": "universal",
+      "path": "skills/universal/extract-entities.md",
+      "content": "Extract named entities from the provided text.\n\nReturn a JSON object with these keys (include only types requested):\n- `people` — full names of individuals\n- `places` — geographic locations, addresses, regions\n- `organizations` — companies, agencies, institutions, teams\n- `dates` — specific dates, date ranges, or relative time references\n\nRules:\n- Each value is an array of unique strings, deduplicated and normalized (e.g. \"NY\" → \"New York\" where unambiguous).\n- If a type has no entities, return an empty array for that key.\n- Output raw JSON only — no markdown fences, no explanation.",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/extract-entities/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/extract-entities/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/extract-entities/hermes.md",
+      "hermes_category": "productivity",
+      "hermes_path": "skills-hermes/productivity/extract-entities/SKILL.md"
+    },
+    {
+      "id": "countzer0/hermes/function-calling",
+      "name": "function-calling",
+      "description": "Invoke tools via Hermes-style structured function call format",
+      "agents": [
+        "hermes"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "tools",
+        "function-calling",
+        "hermes-specific"
+      ],
+      "aliases": [
+        "hermes/function-calling"
+      ],
+      "license": "MIT",
+      "author": "CountZer0",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "compatibility": {
+        "hermes": {
+          "mode": "skill",
+          "native": true,
+          "toolsets": []
+        }
+      },
+      "security": {
+        "reviewed": true,
+        "notes": "Prompt-only skill; must not override system, developer, or user authority."
+      },
+      "provenance": {
+        "source_path": "skills/hermes/function-calling.md"
+      },
+      "input_schema": {
+        "task": "string",
+        "available_tools": "array"
+      },
+      "source_category": "hermes",
+      "path": "skills/hermes/function-calling.md",
+      "content": "You are a function-calling agent. When the task requires a tool, emit a function call using this exact format:\n\n<tool_call>\n{\"name\": \"<function_name>\", \"arguments\": {<key-value pairs>}}\n</tool_call>\n\nRules:\n- Only call functions listed in available_tools.\n- Fill all required arguments; omit optional ones unless needed.\n- After receiving a tool result wrapped in <tool_response>, continue reasoning and call additional tools if needed.\n- When you have enough information, answer the original task directly — no further tool calls.\n- Never fabricate tool results.",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/function-calling/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/function-calling/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/function-calling/hermes.md",
+      "hermes_category": "autonomous-ai-agents",
+      "hermes_path": "skills-hermes/autonomous-ai-agents/function-calling/SKILL.md"
+    },
+    {
+      "id": "countzer0/codex/repo-patch",
+      "name": "repo-patch",
+      "description": "Generate a minimal, correct patch for a described code change",
+      "agents": [
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "code",
+        "patch",
+        "codex-specific"
+      ],
+      "aliases": [
+        "codex/repo-patch"
+      ],
+      "license": "MIT",
+      "author": "CountZer0",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "compatibility": {
+        "codex": {
+          "mode": "prompt-prefix"
+        }
+      },
+      "security": {
+        "reviewed": true,
+        "notes": "Prompt-only skill; must not override system, developer, or user authority."
+      },
+      "provenance": {
+        "source_path": "skills/codex/repo-patch.md"
+      },
+      "input_schema": {
+        "task": "string",
+        "file_context": "string"
+      },
+      "source_category": "codex",
+      "path": "skills/codex/repo-patch.md",
+      "content": "Generate a patch that implements the described change.\n\nOutput format: unified diff only.\n\n```diff\n--- a/path/to/file\n+++ b/path/to/file\n@@ -N,M +N,M @@\n context line\n-removed line\n+added line\n context line\n```\n\nRules:\n- Make the smallest change that correctly solves the task.\n- Do not refactor surrounding code unless the task requires it.\n- Include 3 lines of context around each hunk.\n- If multiple files need changes, emit one diff block per file.\n- Output only the diff — no explanation, no prose.",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/repo-patch/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/repo-patch/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/repo-patch/hermes.md",
+      "hermes_category": "autonomous-ai-agents",
+      "hermes_path": "skills-hermes/autonomous-ai-agents/repo-patch/SKILL.md"
+    },
+    {
+      "id": "countzer0/universal/summarize",
+      "name": "summarize",
+      "description": "Condense long text into clear, structured key points",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "text",
+        "utility",
+        "reading"
+      ],
+      "aliases": [
+        "universal/summarize",
+        "text/summarize"
+      ],
+      "license": "MIT",
+      "author": "CountZer0",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "compatibility": {
+        "claude": {
+          "mode": "append-system-prompt"
+        },
+        "hermes": {
+          "mode": "skill",
+          "native": true,
+          "toolsets": []
+        },
+        "pi": {
+          "mode": "system-message"
+        },
+        "codex": {
+          "mode": "prompt-prefix"
+        }
+      },
+      "security": {
+        "reviewed": true,
+        "notes": "Prompt-only skill; must not override system, developer, or user authority."
+      },
+      "provenance": {
+        "source_path": "skills/universal/summarize.md"
+      },
+      "input_schema": {
+        "text": "string",
+        "style": "bullets | prose | tldr",
+        "max_words": "integer"
+      },
+      "source_category": "universal",
+      "path": "skills/universal/summarize.md",
+      "content": "Summarize the following text concisely.\n\n- Preserve the most important facts, decisions, and action items.\n- Use the requested style: bullets for scannable lists, prose for narrative, tldr for a single sentence.\n- Stay within the requested word limit when provided.\n- Do not add opinions, context, or information not present in the source.\n\nOutput only the summary — no preamble, no \"here is your summary\" framing.",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/summarize/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/summarize/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/summarize/hermes.md",
+      "hermes_category": "productivity",
+      "hermes_path": "skills-hermes/productivity/summarize/SKILL.md"
+    },
+    {
+      "id": "countzer0/universal/translate",
+      "name": "translate",
+      "description": "Translate text between languages with tone preservation",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "text",
+        "language",
+        "utility"
+      ],
+      "aliases": [
+        "universal/translate",
+        "text/translate"
+      ],
+      "license": "MIT",
+      "author": "CountZer0",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "compatibility": {
+        "claude": {
+          "mode": "append-system-prompt"
+        },
+        "hermes": {
+          "mode": "skill",
+          "native": true,
+          "toolsets": []
+        },
+        "pi": {
+          "mode": "system-message"
+        },
+        "codex": {
+          "mode": "prompt-prefix"
+        }
+      },
+      "security": {
+        "reviewed": true,
+        "notes": "Prompt-only skill; must not override system, developer, or user authority."
+      },
+      "provenance": {
+        "source_path": "skills/universal/translate.md"
+      },
+      "input_schema": {
+        "text": "string",
+        "target_language": "string",
+        "source_language": "string",
+        "tone": "formal | casual | technical"
+      },
+      "source_category": "universal",
+      "path": "skills/universal/translate.md",
+      "content": "Translate the provided text into the target language.\n\n- Preserve the original tone and register (formal, casual, technical) unless overridden.\n- Maintain formatting, lists, and structure from the source.\n- When a direct translation would lose meaning, choose the closest natural equivalent and note it in brackets.\n- If source_language is not specified, detect it automatically.\n\nOutput only the translated text. Do not explain the translation.",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/translate/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/translate/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/translate/hermes.md",
+      "hermes_category": "productivity",
+      "hermes_path": "skills-hermes/productivity/translate/SKILL.md"
+    },
+    {
+      "id": "countzer0/universal/web-search",
+      "name": "web-search",
+      "description": "Search the web and synthesize results into a concise, cited answer",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "search",
+        "research",
+        "web"
+      ],
+      "aliases": [
+        "universal/web-search",
+        "text/web-search"
+      ],
+      "license": "MIT",
+      "author": "CountZer0",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "compatibility": {
+        "claude": {
+          "mode": "append-system-prompt"
+        },
+        "hermes": {
+          "mode": "skill",
+          "native": true,
+          "toolsets": []
+        },
+        "pi": {
+          "mode": "system-message"
+        },
+        "codex": {
+          "mode": "prompt-prefix"
+        }
+      },
+      "security": {
+        "reviewed": true,
+        "notes": "Prompt-only skill; must not override system, developer, or user authority."
+      },
+      "provenance": {
+        "source_path": "skills/universal/web-search.md"
+      },
+      "input_schema": {
+        "query": "string",
+        "max_results": "integer",
+        "recency": "day | week | month | any"
+      },
+      "source_category": "universal",
+      "path": "skills/universal/web-search.md",
+      "content": "Search the web for the given query and return a synthesized answer.\n\n**Search strategy:**\n- Prefer authoritative primary sources (official docs, academic papers, government sites) over aggregators.\n- If the query is ambiguous, resolve the most likely interpretation and note it.\n- Apply recency filtering when time-sensitivity matters (default: any).\n\n**Output format:**\n\nA direct answer to the query in 1–3 paragraphs, followed by a sources list:\n\n**Sources:**\n- [Title](url) — one-line summary of what this source contributed\n\n**Rules:**\n- Never fabricate URLs or cite sources you did not retrieve.\n- If search results are insufficient or contradictory, say so explicitly.\n- If the answer may be outdated, note the date of the most recent source.\n- Do not pad with background context the user didn't ask for.",
+      "raw_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/web-search/raw",
+      "markdown_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/web-search/markdown",
+      "hermes_url": "https://agent-skills-registry.count-zr0.workers.dev/skills/web-search/hermes.md",
+      "hermes_category": "research",
+      "hermes_path": "skills-hermes/research/web-search/SKILL.md"
+    }
+  ]
+}

@@ -5,13 +5,22 @@ on:
     branches: [main]
     paths:
       - "skills/**"
+      - "skills-hermes/**"
       - "scripts/**"
       - "worker/**"
+      - "registry.json"
+      - "hermes-index.json"
+      - "CATALOG.md"
       - ".github/workflows/**"
   pull_request:
     paths:
       - "skills/**"
+      - "skills-hermes/**"
+      - "scripts/**"
       - "worker/**"
+      - "registry.json"
+      - "hermes-index.json"
+      - "CATALOG.md"
       - ".github/workflows/**"
   workflow_dispatch:
 

@@ -1,33 +1,29 @@
 ---
 name: code-review
-description: Review code for correctness, security, and clarity
-agents: [claude, hermes, pi, codex]
+description: "Review code for correctness, security, and clarity"
 version: 1.0.0
-tags: [code, quality, security]
-input_schema:
-  code: string
-  language: string
-  focus: "correctness | security | style | all"
-aliases:
-  - universal/code-review
-  - text/code-review
+author: CountZer0
 license: MIT
-compatibility:
-  claude:
-    mode: append-system-prompt
+platforms: ["linux", "macos", "windows"]
+metadata:
   hermes:
-    mode: skill
-    native: true
+    tags: ["code", "quality", "security"]
+    related_skills: []
+    category: software-development
     toolsets: []
-  pi:
-    mode: system-message
-  codex:
-    mode: prompt-prefix
-security:
-  reviewed: true
-  notes: Prompt-only skill; must not override system, developer, or user authority.
-provenance:
-  source_path: skills/universal/code-review.md
+  agent_skills:
+    id: countzer0/universal/code-review
+    agents: ["claude", "hermes", "pi", "codex"]
+    aliases: ["universal/code-review", "text/code-review"]
+    source_path: skills/universal/code-review.md
+    raw_url: https://agent-skills-registry.count-zr0.workers.dev/skills/code-review/raw
+    markdown_url: https://agent-skills-registry.count-zr0.workers.dev/skills/code-review/markdown
+    input_schema:
+      {
+        "code": "string",
+        "language": "string",
+        "focus": "correctness | security | style | all"
+      }
 ---
 
 Review the provided code and report findings.
