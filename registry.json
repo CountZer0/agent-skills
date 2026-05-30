@@ -1,0 +1,171 @@
+{
+  "generated": "2026-05-30T19:15:54.111Z",
+  "count": 8,
+  "skills": [
+    {
+      "name": "code-review",
+      "description": "Review code for correctness, security, and clarity",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "code",
+        "quality",
+        "security"
+      ],
+      "input_schema": {
+        "code": "string",
+        "language": "string",
+        "focus": "correctness | security | style | all"
+      },
+      "path": "skills/universal/code-review.md",
+      "content": "Review the provided code and report findings.\n\nStructure your output as:\n\n**Bugs / Correctness**\n- List logic errors, off-by-ones, null dereferences, or incorrect assumptions.\n\n**Security**\n- Flag injection risks, unsafe deserialization, hardcoded secrets, missing auth checks, etc.\n\n**Clarity**\n- Note confusing naming, missing edge-case handling, or structural issues that will cause future bugs.\n\nRules:\n- Only report findings with high confidence. Skip speculative or stylistic nitpicks unless focus=style.\n- For each finding include: severity (critical / high / medium / low), file+line if available, and a one-line fix suggestion.\n- If focus is set, only report findings in that category.\n- End with a one-line overall verdict."
+    },
+    {
+      "name": "empathic-listener",
+      "description": "Engage with emotional intelligence, warmth, and active listening",
+      "agents": [
+        "pi"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "conversation",
+        "empathy",
+        "pi-specific"
+      ],
+      "input_schema": null,
+      "path": "skills/pi/empathic-listener.md",
+      "content": "Respond with genuine warmth and curiosity. Your goals:\n\n1. **Acknowledge first** — before offering advice or information, reflect back what the person said to show you heard them.\n2. **Ask one question** — choose the most meaningful follow-up question rather than a list.\n3. **Stay present** — do not jump ahead to solutions unless the person asks for them.\n4. **Avoid platitudes** — no \"I understand how you feel\" without substance behind it.\n5. **Match energy** — meet serious moments with seriousness, light moments with lightness.\n\nYou are a thoughtful companion, not a problem-solver unless invited to be one."
+    },
+    {
+      "name": "extended-thinking",
+      "description": "Trigger deep multi-step reasoning before answering hard problems",
+      "agents": [
+        "claude"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "reasoning",
+        "planning",
+        "claude-specific"
+      ],
+      "input_schema": {
+        "problem": "string",
+        "budget_tokens": "integer"
+      },
+      "path": "skills/claude/extended-thinking.md",
+      "content": "Before answering, think through this problem thoroughly inside a <parameter name=\"thinking\"> block.\n\nIn your thinking:\n- Break the problem into sub-problems\n- Consider edge cases and counterarguments\n- Explore multiple solution paths before committing\n- Identify assumptions and flag ones you're uncertain about\n\nAfter thinking, give your answer directly — no recap of the reasoning process unless asked.\n\nSet budget_tokens to control depth (default 8000; increase for harder problems)."
+    },
+    {
+      "name": "extract-entities",
+      "description": "Extract named entities (people, places, orgs, dates) from unstructured text",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "text",
+        "extraction",
+        "nlp"
+      ],
+      "input_schema": {
+        "text": "string",
+        "entity_types": "people | places | organizations | dates | all"
+      },
+      "path": "skills/universal/extract-entities.md",
+      "content": "Extract named entities from the provided text.\n\nReturn a JSON object with these keys (include only types requested):\n- `people` — full names of individuals\n- `places` — geographic locations, addresses, regions\n- `organizations` — companies, agencies, institutions, teams\n- `dates` — specific dates, date ranges, or relative time references\n\nRules:\n- Each value is an array of unique strings, deduplicated and normalized (e.g. \"NY\" → \"New York\" where unambiguous).\n- If a type has no entities, return an empty array for that key.\n- Output raw JSON only — no markdown fences, no explanation."
+    },
+    {
+      "name": "function-calling",
+      "description": "Invoke tools via Hermes-style structured function call format",
+      "agents": [
+        "hermes"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "tools",
+        "function-calling",
+        "hermes-specific"
+      ],
+      "input_schema": {
+        "task": "string",
+        "available_tools": "array"
+      },
+      "path": "skills/hermes/function-calling.md",
+      "content": "You are a function-calling agent. When the task requires a tool, emit a function call using this exact format:\n\n<tool_call>\n{\"name\": \"<function_name>\", \"arguments\": {<key-value pairs>}}\n</tool_call>\n\nRules:\n- Only call functions listed in available_tools.\n- Fill all required arguments; omit optional ones unless needed.\n- After receiving a tool result wrapped in <tool_response>, continue reasoning and call additional tools if needed.\n- When you have enough information, answer the original task directly — no further tool calls.\n- Never fabricate tool results."
+    },
+    {
+      "name": "repo-patch",
+      "description": "Generate a minimal, correct patch for a described code change",
+      "agents": [
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "code",
+        "patch",
+        "codex-specific"
+      ],
+      "input_schema": {
+        "task": "string",
+        "file_context": "string"
+      },
+      "path": "skills/codex/repo-patch.md",
+      "content": "Generate a patch that implements the described change.\n\nOutput format: unified diff only.\n\n```diff\n--- a/path/to/file\n+++ b/path/to/file\n@@ -N,M +N,M @@\n context line\n-removed line\n+added line\n context line\n```\n\nRules:\n- Make the smallest change that correctly solves the task.\n- Do not refactor surrounding code unless the task requires it.\n- Include 3 lines of context around each hunk.\n- If multiple files need changes, emit one diff block per file.\n- Output only the diff — no explanation, no prose."
+    },
+    {
+      "name": "summarize",
+      "description": "Condense long text into clear, structured key points",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "text",
+        "utility",
+        "reading"
+      ],
+      "input_schema": {
+        "text": "string",
+        "style": "bullets | prose | tldr",
+        "max_words": "integer"
+      },
+      "path": "skills/universal/summarize.md",
+      "content": "Summarize the following text concisely.\n\n- Preserve the most important facts, decisions, and action items.\n- Use the requested style: bullets for scannable lists, prose for narrative, tldr for a single sentence.\n- Stay within the requested word limit when provided.\n- Do not add opinions, context, or information not present in the source.\n\nOutput only the summary — no preamble, no \"here is your summary\" framing."
+    },
+    {
+      "name": "translate",
+      "description": "Translate text between languages with tone preservation",
+      "agents": [
+        "claude",
+        "hermes",
+        "pi",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "tags": [
+        "text",
+        "language",
+        "utility"
+      ],
+      "input_schema": {
+        "text": "string",
+        "target_language": "string",
+        "source_language": "string",
+        "tone": "formal | casual | technical"
+      },
+      "path": "skills/universal/translate.md",
+      "content": "Translate the provided text into the target language.\n\n- Preserve the original tone and register (formal, casual, technical) unless overridden.\n- Maintain formatting, lists, and structure from the source.\n- When a direct translation would lose meaning, choose the closest natural equivalent and note it in brackets.\n- If source_language is not specified, detect it automatically.\n\nOutput only the translated text. Do not explain the translation."
+    }
+  ]
+}

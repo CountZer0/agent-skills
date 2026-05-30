@@ -1,0 +1,65 @@
+name: Build Registry
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "scripts/**"
+      - "worker/**"
+  pull_request:
+    paths:
+      - "skills/**"
+      - "worker/**"
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Validate skills
+        run: npm run validate
+
+      - name: Build registry
+        run: npm run build
+
+      - name: Commit updated registry
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add registry.json
+          git diff --cached --quiet || git commit -m "chore: rebuild registry.json [skip ci]"
+          git push
+
+  deploy-worker:
+    runs-on: ubuntu-latest
+    needs: validate-and-build
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Build registry (fresh)
+        run: npm ci && npm run build
+
+      - name: Install worker deps
+        run: cd worker && npm ci
+
+      - name: Deploy worker
+        run: cd worker && npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

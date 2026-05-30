@@ -1,0 +1,18 @@
+{
+  "name": "agent-skills",
+  "version": "1.0.0",
+  "description": "Universal skills registry for Hermes, Pi, Claude, and Codex agents",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-registry.js",
+    "validate": "node scripts/validate.js",
+    "prebuild": "npm run validate",
+    "deploy": "npm run build && cd worker && npm ci && npx wrangler deploy"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
